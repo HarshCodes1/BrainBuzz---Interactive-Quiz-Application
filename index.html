@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBuzz - Interactive Quiz Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Loading questions...</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="app">
+        <!-- Landing Screen -->
+        <section class="screen active" id="landingScreen">
+            <div class="landing-content">
+                <div class="logo">
+                    <div class="logo-svg">
+                        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Light bulb main body -->
+                            <circle cx="60" cy="45" r="25" 
+                                    fill="url(#bulbGradient)" stroke="#000000" stroke-width="3"/>
+                            
+                            <!-- Bulb base/screw threads -->
+                            <rect x="50" y="70" width="20" height="15" rx="2" 
+                                  fill="url(#baseGradient)" stroke="#000000" stroke-width="2"/>
+                            <line x1="48" y1="75" x2="72" y2="75" stroke="#000000" stroke-width="1"/>
+                            <line x1="48" y1="78" x2="72" y2="78" stroke="#000000" stroke-width="1"/>
+                            <line x1="48" y1="81" x2="72" y2="81" stroke="#000000" stroke-width="1"/>
+                            
+                            <!-- Filament inside bulb -->
+                            <path d="M50 35 Q55 40 50 45 Q55 50 50 55 M70 35 Q65 40 70 45 Q65 50 70 55" 
+                                  stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M55 40 Q60 35 65 40 Q60 45 55 50 Q60 55 65 50" 
+                                  stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Lightning bolts -->
+                            <path d="M25 35l-8-5 6-8 8 5-6 8z" fill="#f59e0b"/>
+                            <path d="M95 35l8-5-6-8-8 5 6 8z" fill="#f59e0b"/>
+                            
+                            <!-- Light rays -->
+                            <g stroke="#14b8a6" stroke-width="3" stroke-linecap="round">
+                                <line x1="30" y1="25" x2="25" y2="20"/>
+                                <line x1="90" y1="25" x2="95" y2="20"/>
+                                <line x1="20" y1="45" x2="15" y2="45"/>
+                                <line x1="100" y1="45" x2="105" y2="45"/>
+                                <line x1="30" y1="65" x2="25" y2="70"/>
+                                <line x1="90" y1="65" x2="95" y2="70"/>
+                            </g>
+                            
+                            <!-- Gradient definition -->
+                            <defs>
+                                <linearGradient id="bulbGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="baseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h1><span class="brain-text">Brain</span><span class="buzz-text">Buzz</span></h1>
+                </div>
+                <p class="subtitle">Challenge your mind with interactive quizzes and boost your knowledge!</p>
+                
+                <div class="stats-banner">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Game Modes</div>
+                    </div>
+                </div>
+                
+                <div class="mode-selection">
+                    <div class="mode-card" data-mode="practice">
+                        <div class="mode-icon">📚</div>
+                        <h3>Practice Mode</h3>
+                        <p>Take your time and learn at your own pace</p>
+                        <div class="mode-features">
+                            <span>• Unlimited time</span>
+                            <span>• Review answers</span>
+                            <span>• No pressure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mode-card" data-mode="timed">
+                        <div class="mode-icon">⏱️</div>
+                        <h3>Timed Mode</h3>
+                        <p>Race against time with each question</p>
+                        <div class="mode-features">
+                            <span>• 15 seconds per question</span>
+                            <span>• Instant feedback</span>
+                            <span>• Adrenaline rush</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mode-card" data-mode="exam">
+                        <div class="mode-icon">🎓</div>
+                        <h3>Exam Mode</h3>
+                        <p>Ultimate challenge with time pressure</p>
+                        <div class="mode-features">
+                            <span>• Total time limit</span>
+                            <span>• No going back</span>
+                            <span>• Final challenge</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-section">
+                    <h3>Why Choose BrainBuzz?</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">Lightning Fast</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-text">Accurate Scoring</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📱</div>
+                            <div class="feature-text">Mobile Friendly</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🏆</div>
+                            <div class="feature-text">Achievement System</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Selection Screen -->
+        <section class="screen" id="categoryScreen">
+            <div class="screen-header">
+                <button class="back-btn" id="backToLanding">← Back</button>
+                <h2 class="challenge-heading">Choose Your Challenge</h2>
+                <div class="mode-badge" id="selectedModeDisplay"></div>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card" data-category="9">
+                    <div class="category-icon">🌍</div>
+                    <h3>General Knowledge</h3>
+                </div>
+                <div class="category-card" data-category="17">
+                    <div class="category-icon">🔬</div>
+                    <h3>Science & Nature</h3>
+                </div>
+                <div class="category-card" data-category="18">
+                    <div class="category-icon">💻</div>
+                    <h3>Computers</h3>
+                </div>
+                <div class="category-card" data-category="19">
+                    <div class="category-icon">📊</div>
+                    <h3>Mathematics</h3>
+                </div>
+                <div class="category-card" data-category="21">
+                    <div class="category-icon">⚽</div>
+                    <h3>Sports</h3>
+                </div>
+                <div class="category-card" data-category="23">
+                    <div class="category-icon">🏛️</div>
+                    <h3>History</h3>
+                </div>
+                <div class="category-card" data-category="22">
+                    <div class="category-icon">🗺️</div>
+                    <h3>Geography</h3>
+                </div>
+                <div class="category-card" data-category="11">
+                    <div class="category-icon">🎬</div>
+                    <h3>Movies</h3>
+                </div>
+                <div class="category-card" data-category="12">
+                    <div class="category-icon">🎵</div>
+                    <h3>Music</h3>
+                </div>
+                <div class="category-card" data-category="27">
+                    <div class="category-icon">🐾</div>
+                    <h3>Animals</h3>
+                </div>
+                <div class="category-card" data-category="20">
+                    <div class="category-icon">⚡</div>
+                    <h3>Mythology</h3>
+                </div>
+                <div class="category-card" data-category="14">
+                    <div class="category-icon">📺</div>
+                    <h3>Television</h3>
+                </div>
+            </div>
+
+            <div class="quiz-settings">
+                <div class="setting-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="questionCount">Questions:</label>
+                    <select id="questionCount">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="15">15 Questions</option>
+                        <option value="20">20 Questions</option>
+                    </select>
+                </div>
+                
+                <button class="start-quiz-btn" id="startQuizBtn" disabled>Start Quiz</button>
+            </div>
+        </section>
+
+        <!-- Quiz Screen -->
+        <section class="screen" id="quizScreen">
+            <div class="quiz-header">
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">1 of 10</span>
+                </div>
+                
+                <div class="quiz-stats">
+                    <div class="stat">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value" id="currentScore">0</span>
+                    </div>
+                    <div class="timer" id="timerDisplay">
+                        <div class="timer-circle">
+                            <span id="timeLeft">15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-card">
+                    <h2 class="question-text" id="questionText">Loading question...</h2>
+                    
+                    <div class="answers-grid" id="answersGrid">
+                        <button class="answer-btn" data-answer="0">Answer 1</button>
+                        <button class="answer-btn" data-answer="1">Answer 2</button>
+                        <button class="answer-btn" data-answer="2">Answer 3</button>
+                        <button class="answer-btn" data-answer="3">Answer 4</button>
+                    </div>
+                    
+                    <div class="question-actions">
+                        <button class="action-btn secondary" id="nextQuestionBtn" style="display: none;">Next Question</button>
+                        <button class="action-btn secondary" id="skipQuestionBtn">Skip Question</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section class="screen" id="resultsScreen">
+            <div class="results-content">
+                <div class="results-header">
+                    <div class="completion-icon">🎉</div>
+                    <h2>Quiz Complete!</h2>
+                </div>
+                
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="score-percentage" id="finalPercentage">0%</div>
+                        <div class="score-fraction" id="finalScore">0/0</div>
+                    </div>
+                    
+                    <div class="grade-badge" id="gradeBadge">A+</div>
+                </div>
+                
+                <div class="results-stats">
+                    <div class="stat-item">
+                        <span class="stat-number correct" id="correctAnswers">0</span>
+                        <span class="stat-label">Correct</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number incorrect" id="incorrectAnswers">0</span>
+                        <span class="stat-label">Incorrect</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number skipped" id="skippedAnswers">0</span>
+                        <span class="stat-label">Skipped</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number time" id="totalTime">0s</span>
+                        <span class="stat-label">Time</span>
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="action-btn primary" id="playAgainBtn">Play Again</button>
+                    <button class="action-btn secondary" id="reviewAnswersBtn">Review Answers</button>
+                    <button class="action-btn secondary" id="shareResultsBtn">Share Results</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Review Screen -->
+        <section class="screen" id="reviewScreen">
+            <div class="screen-header">
+                <button class="back-btn" id="backToResults">← Back to Results</button>
+                <h2>Review Answers</h2>
+            </div>
+            
+            <div class="review-content" id="reviewContent">
+                <!-- Review items will be populated here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Audio Elements -->
+    <audio id="correctSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBiGS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBiGS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwfGhaJyO7ZjjUJHHTK8t2OPwoTYLjt559NEAxQp+PwtmMcBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjyA1/LVfyoEL3jH8OyQQQoTXLPp7KpVFAlFn+Lt" type="audio/wav">
+    </audio>
+    <audio id="incorrectSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm1QIAAAACAAEAgAREAAEBBAAAAAAABAAABAAgA" type="audio/wav">
+    </audio>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
